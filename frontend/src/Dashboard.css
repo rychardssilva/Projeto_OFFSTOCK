@@ -1,0 +1,550 @@
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  /* O fundo de ondas escurecido (coloquei 75% escuro para a tabela de estoque ficar fácil de ler) */
+  background-image:
+    linear-gradient(rgba(15, 15, 15, 0.75), rgba(15, 15, 15, 0.75)),
+    url("/fundo-ondas.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Isso faz a onda ficar parada no fundo se você rolar a página para baixo */
+
+  font-family: "Inter", sans-serif;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 20px 50px;
+  background-color: rgba(25, 25, 25, 0.6);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(0, 196, 204, 0.14);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.brand h1 {
+  color: #00c4cc;
+  font-size: 1.8rem;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.tag-plataforma {
+  background-color: rgba(0, 196, 204, 0.1);
+  border: 1px solid rgba(0, 196, 204, 0.16);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  color: #a8e8eb;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.user-info span {
+  font-size: 0.95rem;
+  color: #a0a0b5;
+}
+
+.user-info strong {
+  color: #fff;
+  font-weight: 600;
+}
+
+.btn-sair,
+.btn-voltar,
+.ghost-action,
+.confirm-action,
+.primary-action {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-sair {
+  background-color: transparent;
+  color: #f75a68;
+  border: 1px solid #f75a68;
+  padding: 9px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.btn-sair:hover {
+  background-color: rgba(247, 90, 104, 0.12);
+}
+
+.dashboard-content {
+  padding: 40px 50px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+}
+
+.acoes-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  max-width: 1040px;
+  width: 100%;
+}
+
+.card-acao {
+  background-color: transparent; /* Remove o fundo preto/cinza */
+  border: 1px solid rgba(255, 255, 255, 0.2); /* Deixa só uma linha bem suave de contorno */
+  backdrop-filter: blur(5px); /* Embaça a onda só um pouquinho atrás do botão */
+
+  /* Mantenha o resto que já estava aí (padding, border-radius, etc) */
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.card-acao::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #00c4cc;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s ease;
+}
+
+/* Para dar um efeito legal quando passar o mouse: */
+.card-acao:hover {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.05
+  ); /* Dá um leve brilho ao passar o mouse */
+  transform: translateY(-5px);
+}
+
+.card-acao:hover::before {
+  transform: scaleX(1);
+}
+
+.card-acao-warning {
+  border-color: rgba(251, 169, 76, 0.24);
+}
+
+.card-acao-warning::before {
+  background-color: #fba94c;
+}
+
+.card-acao-warning h3 {
+  color: #fba94c;
+}
+
+.card-art {
+  min-height: 72px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+  margin-bottom: 12px;
+}
+
+.card-art span {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.estoque-art span:last-child {
+  transform: rotate(-10deg);
+}
+
+.retirada-art span:last-child {
+  transform: rotate(-5deg);
+}
+
+.devolucao-art span:last-child {
+  font-size: 2.6rem;
+}
+
+.ferramenta-art span:last-child {
+  transform: rotate(-8deg);
+}
+
+.funcionario-art span:last-child {
+  font-size: 2.8rem;
+}
+
+.card-acao h3 {
+  color: #fff;
+  font-size: 1.35rem;
+  margin: 0 0 10px;
+}
+
+.card-acao p {
+  color: #9b9baa;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.dashboard-footer {
+  background-color: rgba(25, 25, 25, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 15px 50px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 0.8rem;
+  color: #8d8d99;
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: #04d361;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #04d361;
+}
+
+.modulo-ativo {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.btn-voltar {
+  align-self: flex-start;
+  background-color: transparent;
+  border: 1px solid #414650;
+  color: #c7c7d0;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.btn-voltar:hover {
+  border-color: #00c4cc;
+  color: #fff;
+  background-color: rgba(0, 196, 204, 0.08);
+}
+
+.modulo-conteudo {
+  /* Removemos qualquer cor sólida ou semi-transparente! */
+  background-color: transparent !important;
+
+  /* Removemos bordas e sombras que criam aquele aspecto de "caixa" */
+  border: none;
+  box-shadow: none;
+
+  /* Opcional: Se o texto estiver sumindo nas ondas, descomente a linha abaixo 
+     para embaçar BEM LEVEMENTE apenas a área atrás do texto */
+  /* backdrop-filter: blur(4px); */
+
+  padding: 30px;
+  min-height: 400px;
+}
+.module-section {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.form-section {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.module-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.module-kicker {
+  color: #9be7eb;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.module-heading h2 {
+  color: #fff;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.module-heading p {
+  color: #9b9baa;
+  line-height: 1.5;
+}
+
+.warning-section .module-heading h2 {
+  color: #fba94c;
+}
+
+.toolbar-row {
+  display: flex;
+  gap: 14px;
+}
+
+.module-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field-group label {
+  color: #b0b0bc;
+  font-size: 14px;
+}
+
+.field-control {
+  width: 100%;
+  min-height: 46px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background-color: #252a32;
+  color: #fff;
+  border: 1px solid #434a56;
+  font-size: 16px;
+  outline: none;
+}
+
+.field-control:focus {
+  border-color: #00c4cc;
+  box-shadow: 0 0 0 3px rgba(0, 196, 204, 0.12);
+}
+
+.field-grow {
+  flex: 1;
+}
+
+input[type="date"].field-control {
+  color-scheme: dark;
+}
+
+.primary-action {
+  min-height: 48px;
+  padding: 14px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #00c4cc;
+  color: #fff;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.primary-action:hover {
+  background-color: #00a3a8;
+}
+
+.primary-action.warning {
+  background-color: #fba94c;
+  color: #171717;
+}
+
+.primary-action.warning:hover {
+  background-color: #e79438;
+}
+
+.table-shell {
+  overflow-x: auto;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+  min-width: 620px;
+}
+
+.data-table thead {
+  background-color: rgba(0, 196, 204, 0.08);
+}
+
+.data-table th,
+.data-table td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.data-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.muted-cell {
+  color: #8d8d99;
+}
+
+.strong-cell {
+  font-weight: 600;
+}
+
+.inline-note {
+  color: #a3a3ad;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.center-cell {
+  text-align: center !important;
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #111;
+}
+
+.status-chip.success {
+  background-color: #4ade80;
+}
+
+.status-chip.warning {
+  background-color: #fba94c;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  color: #b4b4bd;
+}
+
+.overdue-row {
+  background-color: rgba(247, 90, 104, 0.08);
+}
+
+.danger-cell {
+  color: #f75a68;
+  font-weight: 600;
+}
+
+.ghost-action {
+  padding: 8px 14px;
+  background-color: transparent;
+  color: #9be7eb;
+  border: 1px solid #00c4cc;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.ghost-action:hover {
+  color: #fff;
+  background-color: rgba(0, 196, 204, 0.1);
+}
+
+.password-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background-color: rgba(8, 10, 14, 0.72);
+  backdrop-filter: blur(5px);
+}
+
+.password-modal {
+  width: min(100%, 480px);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 28px;
+  border-radius: 8px;
+  background-color: #1d2128;
+  border: 1px solid rgba(0, 196, 204, 0.18);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+}
+
+.primary-action:disabled {
+  cursor: wait;
+  opacity: 0.72;
+}
+
+.confirm-action {
+  padding: 8px 14px;
+  background-color: #16a34a;
+  color: #fff;
+  border: 1px solid #22c55e;
+  border-radius: 6px;
+  font-weight: 600;
+  box-shadow: 0 0 0 rgba(34, 197, 94, 0);
+}
+
+.confirm-action:hover {
+  background-color: #15803d;
+  border-color: #4ade80;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.14);
+}
+
+@media (max-width: 900px) {
+  .dashboard-header,
+  .dashboard-footer {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .dashboard-header,
+  .dashboard-footer,
+  .toolbar-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .dashboard-content {
+    padding: 28px 20px;
+  }
+
+  .brand,
+  .user-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .acoes-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modulo-conteudo {
+    padding: 20px;
+  }
+}

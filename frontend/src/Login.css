@@ -1,0 +1,192 @@
+/* src/Login.css */
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap");
+
+.login-container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+
+  /* TRUQUE MÁGICO AQUI: O linear-gradient escurece a foto sutilmente (60% de opacidade) para dar contraste com o texto */
+  background-image:
+    linear-gradient(rgba(20, 20, 20, 0.6), rgba(20, 20, 20, 0.6)),
+    url("/fundo-ondas.jpg");
+  background-size: cover; /* Faz a imagem esticar e cobrir a tela inteira sem distorcer */
+  background-position: center; /* Mantém o foco no centro da foto */
+  background-repeat: no-repeat; /* Evita que a imagem fique se repetindo como um azulejo */
+
+  font-family: "Inter", sans-serif;
+}
+
+.login-brand-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding-right: 80px;
+}
+
+.brand-title {
+  font-family: "Playfair Display", serif;
+  font-size: 120px;
+  color: #00c4cc;
+  margin: 0;
+  line-height: 1;
+}
+
+.brand-tagline {
+  font-family: "Caveat", cursive;
+  font-size: 32px;
+  color: #ffffff;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.login-card-section {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 80px;
+}
+
+.login-card {
+  background-color: rgba(54, 54, 54, 0.96);
+  width: 400px;
+  padding: 45px 40px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  border: 1px solid rgba(0, 196, 204, 0.18);
+}
+
+.cadastro-card {
+  width: 100%;
+  max-width: 500px;
+}
+
+.login-kicker {
+  display: inline-block;
+  color: #9be7eb;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.login-card h2 {
+  color: #00c4cc;
+  font-size: 36px;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 35px;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 16px;
+  background-color: #262626;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+  border-color: #00c4cc;
+}
+
+.input-group input::placeholder {
+  color: #888;
+}
+
+.btn-acessar {
+  width: 100%;
+  padding: 14px;
+  background-color: #00c4cc;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 15px;
+}
+
+.btn-acessar:hover {
+  background-color: #00a3a8;
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #8a8a8a;
+  font-size: 13px;
+  margin: 24px 0 18px;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: #484848;
+}
+
+.btn-admin {
+  width: 100%;
+  padding: 14px;
+  background-color: transparent;
+  border: 1px solid #00c4cc;
+  border-radius: 8px;
+  color: #9be7eb;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-admin:hover {
+  background-color: rgba(0, 196, 204, 0.12);
+  color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .login-container {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  .login-brand-section {
+    align-items: center;
+    padding-right: 0;
+    margin-bottom: 40px;
+    flex: none;
+  }
+
+  .brand-title {
+    font-size: 64px;
+  }
+
+  .login-card-section {
+    padding-left: 0;
+    justify-content: center;
+    width: 100%;
+    flex: none;
+  }
+
+  .login-card {
+    width: 100%;
+    max-width: 400px;
+  }
+}

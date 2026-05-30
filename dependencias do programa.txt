@@ -1,0 +1,23 @@
+Baixar node js antes de tudo 
+ligar o Backend
+Bash
+# 1. Entre na pasta do backend
+cd offstock/backend
+
+# 2. Mande o Node ler o package.json e baixar tudo de novo (Isso recria o node_modules!)
+npm install
+
+# 3. Ligue o servidor
+npx nodemon server.js
+ligar o Frontend
+Abra um novo terminal (deixe o do backend rodando quietinho) e faça o mesmo processo para o front:
+
+Bash
+# 1. Entre na pasta do frontend
+cd offstock/frontend
+
+# 2. Baixe as dependências do React
+npm install
+
+# 3. Ligue a tela
+npm run dev

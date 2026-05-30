@@ -1,0 +1,130 @@
+/* src/Setup.css */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600&display=swap');
+
+.setup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background:
+    linear-gradient(135deg, rgba(0, 196, 204, 0.1), transparent 38%),
+    linear-gradient(180deg, #202020 0%, #262626 100%);
+  font-family: 'Inter', sans-serif;
+}
+
+.setup-card {
+  background-color: rgba(54, 54, 54, 0.96);
+  width: 100%;
+  max-width: 480px;
+  padding: 50px 40px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  border-top: 6px solid #00C4CC;
+  border-right: 1px solid rgba(0, 196, 204, 0.18);
+  border-bottom: 1px solid rgba(0, 196, 204, 0.18);
+  border-left: 1px solid rgba(0, 196, 204, 0.18);
+}
+
+.admin-card {
+  max-width: 520px;
+}
+
+.setup-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.setup-kicker {
+  display: inline-block;
+  color: #9be7eb;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.setup-header h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 56px;
+  color: #00C4CC;
+  margin: 0;
+  line-height: 1;
+}
+
+.setup-header p {
+  color: #FFFFFF;
+  font-size: 20px;
+  font-weight: 600;
+  margin-top: 15px;
+  margin-bottom: 5px;
+}
+
+.setup-subtitle {
+  color: #888;
+  font-size: 14px;
+}
+
+.setup-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.setup-input-group input {
+  width: 100%;
+  padding: 16px;
+  background-color: #262626;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.setup-input-group input:focus {
+  border-color: #00C4CC;
+}
+
+.setup-input-group input::placeholder {
+  color: #888;
+}
+
+.btn-setup {
+  width: 100%;
+  padding: 16px;
+  background-color: #00C4CC;
+  border: none;
+  border-radius: 8px;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: 15px;
+}
+
+.btn-setup:hover {
+  background-color: #00A3A8;
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 16px;
+  background-color: transparent;
+  border: 1px solid #555;
+  border-radius: 8px;
+  color: #d8d8d8;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-secondary:hover {
+  border-color: #00C4CC;
+  color: #ffffff;
+  background-color: rgba(0, 196, 204, 0.08);
+}
