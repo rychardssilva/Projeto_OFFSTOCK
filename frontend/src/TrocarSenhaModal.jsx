@@ -1,3 +1,4 @@
+// src/TrocarSenhaModal.jsx
 import { useState } from 'react';
 import { atualizarPrimeiraSenha } from './services/usuariosService';
 
@@ -9,8 +10,16 @@ function TrocarSenhaModal({ usuario, aoConcluir }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // 1. Checa se as senhas batem
     if (novaSenha !== confirmacao) {
-      return alert('As senhas digitadas nao conferem.');
+      return alert('As senhas digitadas não conferem.');
+    }
+
+    // ✨ 2. REGRA DE NEGÓCIO DO RYCHARD: VALIDAÇÃO DE SENHA FORTE
+    const regexSenhaForte = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
+    
+    if (!regexSenhaForte.test(novaSenha)) {
+      return alert('⚠️ ATENÇÃO: A senha é muito fraca!\n\nPara a segurança da plataforma, ela deve conter:\n- Pelo menos 8 caracteres\n- Pelo menos 1 letra MAIÚSCULA\n- Pelo menos 1 número');
     }
 
     setSalvando(true);
@@ -19,7 +28,7 @@ function TrocarSenhaModal({ usuario, aoConcluir }) {
       const { resposta, dados } = await atualizarPrimeiraSenha(usuario.id, novaSenha);
 
       if (resposta.ok) {
-        alert('Senha atualizada com sucesso!');
+        alert('Senha atualizada com sucesso! Bem-vindo(a).');
         aoConcluir();
       } else {
         alert(dados.erro);
@@ -37,14 +46,14 @@ function TrocarSenhaModal({ usuario, aoConcluir }) {
         <div className="module-heading">
           <span className="module-kicker">Primeiro acesso</span>
           <h2>Crie sua nova senha</h2>
-          <p>Antes de continuar, substitua a senha temporaria por uma senha pessoal.</p>
+          <p>Antes de continuar, substitua a senha provisória por uma senha pessoal e segura.</p>
         </div>
 
         <form className="module-form" onSubmit={handleSubmit}>
           <input
             className="field-control"
             type="password"
-            placeholder="Nova senha"
+            placeholder="Nova senha forte"
             value={novaSenha}
             onChange={(e) => setNovaSenha(e.target.value)}
             required

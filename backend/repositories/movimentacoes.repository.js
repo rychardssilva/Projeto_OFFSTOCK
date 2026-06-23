@@ -45,10 +45,23 @@ function listarHistorico() {
     `);
 }
 
+// ✨ PASSO 1: Nova função para verificar inadimplência
+function verificarAtrasosOperador(usuarioId) {
+  return database.get(
+    `SELECT COUNT(*) as atrasos 
+     FROM movimentacoes 
+     WHERE usuario_id = ? 
+       AND data_devolvido IS NULL 
+       AND date(data_devolucao_prevista) < date('now')`,
+    [usuarioId]
+  );
+}
+
 module.exports = {
   listarPendencias,
   buscarPorId,
   marcarComoDevolvida,
   criarRetirada,
   listarHistorico,
+  verificarAtrasosOperador, // Não esqueça de exportar a nova função!
 };

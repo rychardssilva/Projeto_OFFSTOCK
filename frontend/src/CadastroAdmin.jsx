@@ -6,20 +6,24 @@ function CadastroAdmin() {
   const [nome, setNome] = useState("");
   const [cpf, setCpf] = useState("");
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
 
   const handleCadastro = async (e) => {
     e.preventDefault();
 
     try {
-      const { resposta, dados } = await cadastrarAdmin({ nome, cpf, email, senha });
+      // Igual ao que é feito no operador: injetamos a senha padrão 'mudar123' aqui
+      const { resposta, dados } = await cadastrarAdmin({ 
+        nome, 
+        cpf, 
+        email, 
+        senha: 'mudar123' 
+      });
 
       if (resposta.ok) {
-        alert("✅ Administrador cadastrado com sucesso!");
+        alert(`✅ Administrador ${nome} cadastrado! A senha padrão dele é: mudar123`);
         setNome("");
         setCpf("");
         setEmail("");
-        setSenha("");
       } else {
         alert(`❌ Erro: ${dados.erro}`);
       }
@@ -40,7 +44,7 @@ function CadastroAdmin() {
       {/* Cabeçalho do Módulo com Linha Divisória */}
       <div
         style={{
-          borderBottom: "1px solid #444",
+          borderBottom: "1px solid rgba(255, 255, 255, 0.1)",
           paddingBottom: "20px",
           marginBottom: "30px",
         }}
@@ -67,8 +71,7 @@ function CadastroAdmin() {
         >
           Preencha os dados abaixo para gerar uma credencial com{" "}
           <strong>permissões totais</strong>. <br />
-          Este usuário poderá adicionar materiais, dar baixas e registrar novos
-          operadores.
+          A senha inicial provisória do sistema será gerada automaticamente.
         </p>
       </div>
 
@@ -76,7 +79,7 @@ function CadastroAdmin() {
         onSubmit={handleCadastro}
         style={{ display: "flex", flexDirection: "column", gap: "24px" }}
       >
-        {/* Linha 1: Nome e CPF (Lado a Lado usando Grid) */}
+        {/* Linha 1: Nome e CPF */}
         <div
           style={{
             display: "grid",
@@ -98,9 +101,9 @@ function CadastroAdmin() {
               style={{
                 padding: "14px",
                 borderRadius: "8px",
-                backgroundColor: "#1a1a1a",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
                 color: "#fff",
-                border: "1px solid #444",
+                border: "1px solid rgba(255, 255, 255, 0.2)",
                 outline: "none",
                 fontSize: "15px",
               }}
@@ -122,9 +125,9 @@ function CadastroAdmin() {
               style={{
                 padding: "14px",
                 borderRadius: "8px",
-                backgroundColor: "#1a1a1a",
+                backgroundColor: "rgba(0, 0, 0, 0.5)",
                 color: "#fff",
-                border: "1px solid #444",
+                border: "1px solid rgba(255, 255, 255, 0.2)",
                 outline: "none",
                 fontSize: "15px",
               }}
@@ -146,9 +149,9 @@ function CadastroAdmin() {
             style={{
               padding: "14px",
               borderRadius: "8px",
-              backgroundColor: "#1a1a1a",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
               color: "#fff",
-              border: "1px solid #444",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
               outline: "none",
               fontSize: "15px",
             }}
@@ -156,30 +159,7 @@ function CadastroAdmin() {
           />
         </div>
 
-        {/* Linha 3: Senha Inicial */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-          <label style={{ color: "#ccc", fontSize: "14px", fontWeight: "500" }}>
-            Senha de Acesso Provisória
-          </label>
-          <input
-            type="password"
-            placeholder="Defina a senha inicial..."
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            style={{
-              padding: "14px",
-              borderRadius: "8px",
-              backgroundColor: "#1a1a1a",
-              color: "#fff",
-              border: "1px solid #444",
-              outline: "none",
-              fontSize: "15px",
-            }}
-            required
-          />
-        </div>
-
-        {/* Linha 4: Botão de Envio */}
+        {/* Linha 3: Botão de Envio */}
         <div
           style={{
             display: "flex",

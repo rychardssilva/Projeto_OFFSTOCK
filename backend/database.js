@@ -11,7 +11,6 @@ const db = new sqlite3.Database(dbPath, (err) => {
   }
 });
 
-
 function run(sql, params = []) {
   return new Promise((resolve, reject) => {
     db.run(sql, params, function (err) {
@@ -42,6 +41,7 @@ function all(sql, params = []) {
 // Garante que o banco local tenha a estrutura minima ao iniciar a API
 function initializeDatabase() {
   db.serialize(() => {
+    // 1. Atualizado o CREATE TABLE com as colunas de penalidade de tempo
     db.run(`CREATE TABLE IF NOT EXISTS usuarios (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 nome TEXT NOT NULL,
@@ -52,7 +52,11 @@ function initializeDatabase() {
                 celular TEXT,
                 senha TEXT NOT NULL,
                 perfil TEXT DEFAULT 'operador',
-                troca_senha_obrigatoria BOOLEAN DEFAULT 0
+                troca_senha_obrigatoria BOOLEAN DEFAULT 0,
+                tentativas_login INTEGER DEFAULT 0,
+                bloqueado BOOLEAN DEFAULT 0,
+                bloqueado_em TEXT,
+                contador_bloqueios INTEGER DEFAULT 0
             )`);
 
     db.all(`PRAGMA table_info(usuarios)`, [], (err, colunas) => {
@@ -65,6 +69,21 @@ function initializeDatabase() {
 
       const possuiTrocaObrigatoria = colunas.some(
         (coluna) => coluna.name === "troca_senha_obrigatoria",
+      );
+      
+      const possuiTentativas = colunas.some(
+        (coluna) => coluna.name === "tentativas_login",
+      );
+      const possuiBloqueado = colunas.some(
+        (coluna) => coluna.name === "bloqueado",
+      );
+
+      // ✨ Verifica as novas colunas temporais
+      const possuiBloqueadoEm = colunas.some(
+        (coluna) => coluna.name === "bloqueado_em",
+      );
+      const possuiContadorBloqueios = colunas.some(
+        (coluna) => coluna.name === "contador_bloqueios",
       );
 
       if (!possuiTrocaObrigatoria) {
@@ -80,6 +99,23 @@ function initializeDatabase() {
         db.run(
           `UPDATE usuarios SET troca_senha_obrigatoria = 1 WHERE perfil = 'operador' AND senha = 'mudar123' AND troca_senha_obrigatoria = 0`,
         );
+      }
+
+      if (!possuiTentativas) {
+        db.run(`ALTER TABLE usuarios ADD COLUMN tentativas_login INTEGER DEFAULT 0`);
+      }
+
+      if (!possuiBloqueado) {
+        db.run(`ALTER TABLE usuarios ADD COLUMN bloqueado BOOLEAN DEFAULT 0`);
+      }
+
+      // ✨ Injeta as colunas de controle de tempo nos bancos já existentes
+      if (!possuiBloqueadoEm) {
+        db.run(`ALTER TABLE usuarios ADD COLUMN bloqueado_em TEXT`);
+      }
+
+      if (!possuiContadorBloqueios) {
+        db.run(`ALTER TABLE usuarios ADD COLUMN contador_bloqueios INTEGER DEFAULT 0`);
       }
     });
 
@@ -101,6 +137,14 @@ function initializeDatabase() {
                 data_devolvido DATETIME,
                 FOREIGN KEY(item_id) REFERENCES itens(id),
                 FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
+            )`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS logs_sistema (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                acao TEXT NOT NULL,
+                descricao TEXT NOT NULL,
+                usuario_alvo TEXT,
+                data_log DATETIME DEFAULT CURRENT_TIMESTAMP
             )`);
   });
 }

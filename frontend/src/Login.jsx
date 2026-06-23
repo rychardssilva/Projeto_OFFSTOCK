@@ -14,15 +14,17 @@ function Login({ entrarNoSistema }) {
       const { resposta, dados } = await login({ usuario, senha });
 
       if (resposta.ok) {
-        entrarNoSistema(dados.usuario);
+        // 🔥 CORREÇÃO AQUI: Passamos apenas 'dados' porque o nosso backend 
+        // já manda o objeto do usuário inteiro (com id, nome, perfil) direto na raiz!
+        entrarNoSistema(dados); 
       } else {
-        alert(dados.erro);
+        // Aproveitei para garantir que o alerta mostre a mensagem certinha das 3 tentativas
+        alert(dados.erro || dados.mensagem || "Erro de autenticação.");
       }
     } catch {
       alert("Erro ao conectar com o servidor central.");
     }
   };
-
   return (
     <div className="login-container">
       {/* LADO ESQUERDO: Identidade Visual e Tagline */}
