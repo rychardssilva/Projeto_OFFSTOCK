@@ -263,7 +263,7 @@ Alguns pontos previstos para evolucao:
 
 ## Status do projeto
 
-O OffStock esta em desenvolvimento e possui os principais fluxos funcionai:
+O OffStock esta em desenvolvimento e possui os principais fluxos funcionais para demonstracao:
 
 - configuracao inicial;
 - login;
@@ -278,3 +278,13 @@ O OffStock esta em desenvolvimento e possui os principais fluxos funcionai:
 - bloqueio de login;
 - logs de auditoria.
 
+## Contato apresentado no material
+
+```text
+E-mail: offstock@ufrrj.com.br
+Telefone: (21) 4002-8922
+```
+
+## Objetivo academico
+
+O projeto demonstra a integracao entre frontend, backend e banco de dados em uma aplicacao completa, com organizacao modular, regras de negocio e uma proposta real de valor: transformar o controle de estoque em uma tarefa mais simples, segura e inteligente.
